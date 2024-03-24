@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lofi Player</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="lofi-player">
+            <div class="lofi-video"></div>
+            <audio id="lofiAudio" src="Lofi2.mp3" loop></audio>
+            <div class="controls">
+                <div class="play-pause" id="playPauseBtn">
+                    <i id="playIcon" class="fas fa-play"></i>
+                    <i id="pauseIcon" class="fas fa-pause"></i>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="volume">
+                    <div class="volume-icon"><i class="fas fa-volume-up"></i></div>
+                    <div class="volume-slider">
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
