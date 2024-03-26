@@ -1,35 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lofi Player</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div class="lofi-player">
-            <div class="lofi-video"></div>
-            <audio id="lofiAudio" src="Lofi2.mp3" loop></audio>
-            <div class="controls">
-                <div class="play-pause" id="playPauseBtn">
-                    <i id="playIcon" class="fas fa-play"></i>
-                    <i id="pauseIcon" class="fas fa-pause"></i>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress" id="progress"></div>
-                </div>
-                <div class="volume">
-                    <div class="volume-icon"><i class="fas fa-volume-up"></i></div>
-                    <div class="volume-slider">
-                        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
-                    </div>
-                </div>
-            </div>
-        </div>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Directly link the font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div>
+      <h1 class="lofi-title">Lofi Girl</h1>
+      <!-- Title -->
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" crossorigin="anonymous"></script>
+    <div class="container">
+      <div class="lofi-player">
+        <div class="lofi-video">
+          <img src="public/lofi-girl-music.gif" alt="Lofi Background" />
+        </div>
+        <audio id="lofiAudio" loop></audio>
+        <div class="controls">
+          <div class="prev-next">
+            <img
+              width="50"
+              height="50"
+              src="https://img.icons8.com/sf-black-filled/64/FA5252/rewind.png"
+              alt="rewind"
+            />
+          </div>
+          <div class="play-pause" id="playPauseBtn">
+            <img
+              width="80"
+              height="80"
+              src="https://img.icons8.com/sf-black-filled/100/FA5252/play.png"
+              alt="play"
+            />
+          </div>
+          <div class="prev-next">
+            <img
+              width="50"
+              height="50"
+              src="https://img.icons8.com/sf-black-filled/64/FA5252/fast-forward.png"
+              alt="fast-forward"
+            />
+          </div>
+        </div>
+        <div class="volume">
+          <div class="volume-icon">
+            <img
+              width="50"
+              height="50"
+              src="https://img.icons8.com/sf-black-filled/50/FA5252/medium-volume.png"
+              alt="Volume"
+            />
+          </div>
+          <div class="volume-slider">
+            <input
+              type="range"
+              id="volumeSlider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.5"
+            />
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+      </div>
+    </div>
+    
+        <p class="lofi-subtitle">Made with 💖 by S.G</p>
+      
+
+    </body>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
