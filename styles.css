@@ -5,7 +5,7 @@ body, html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #1a1a1a; /* Dark gray background */
     color: #fff; /* White text */
-    overflow-x: hidden; /* Remove horizontal scrollbar */
+    overflow-y: hidden; /* Remove horizontal scrollbar */
 }
 
 .lofi-title {
@@ -45,7 +45,7 @@ body, html {
     overflow: hidden;
     position: relative;
     margin: auto; /* Center horizontally */
-    margin-top: 20px; /* Adjusted margin to move the player up */
+    margin-top: 1px; /* Adjusted margin to move the player up */
 }
 
 /* Title styling */
