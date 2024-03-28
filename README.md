@@ -2,6 +2,8 @@
 
 Welcome to the Lofi Girl Player, a simple and elegant web application designed for enjoying your favorite lofi music accompanied by soothing visuals. This player provides a seamless experience for relaxation, studying, or unwinding after a long day.
 
+![lofigirl](https://github.com/ShivgunGaming/lofi-girl/assets/102505925/fad035c9-df03-4c87-b076-b5e01d0e085e)
+
 ## Features ✨
 
 - **Lofi Music**: Listen to calming lofi music streamed directly within the player.
