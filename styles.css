@@ -1,132 +1,131 @@
 /* Global styling */
 body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1a1a; /* Dark gray background */
-    color: #fff; /* White text */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a1a1a; /* Dark gray background */
+  color: #fff; /* White text */
+  overflow-x: hidden; /* Remove horizontal scrollbar */
 }
 
 .lofi-title {
-    font-family: 'Great Vibes', cursive; /* Cool cursive font */
-    font-size: 3em; /* Adjust font size as needed */
-    text-align: center; /* Center align the text */
-    margin-top: 50px; /* Adjusted margin to move the title down */
-    color: #FA5252; /* Adjust color as needed */
+  font-family: 'Great Vibes', cursive; /* Cool cursive font */
+  font-size: 3em; /* Adjust font size as needed */
+  text-align: center; /* Center align the text */
+  margin-top: 50px; /* Adjusted margin to move the title down */
+  color: #FA5252; /* Adjust color as needed */
 }
 
 .lofi-subtitle {
-    font-family: 'Great Vibes', cursive; /* Cool cursive font */
-    font-size: 2em; /* Adjust font size as needed */
-    text-align: center; /* Center align the text */
-    color: #FA5252; /* Adjust color as needed */
-    margin-bottom: 50px; /* Adjusted margin to move the subtitle up */
+  font-family: 'Great Vibes', cursive; /* Cool cursive font */
+  font-size: 2em; /* Adjust font size as needed */
+  text-align: center; /* Center align the text */
+  color: #FA5252; /* Adjust color as needed */
+  margin-bottom: 50px; /* Adjusted margin to move the subtitle up */
 }
-
 
 /* Container styling */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align items to the start of the container vertically */
-    min-height: 100vh; /* Ensure the container is at least the height of the viewport */
-    max-height: 100vh; /* Ensure the container does not exceed the height of the viewport */
-    overflow-y: hidden; /* Hide vertical scrollbar */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the start of the container vertically */
+  min-height: 100vh; /* Ensure the container is at least the height of the viewport */
+  max-height: 100vh; /* Ensure the container does not exceed the height of the viewport */
+  overflow-y: hidden; /* Hide vertical scrollbar */
 }
 
 /* Lofi player styling */
 .lofi-player {
-    max-width: 600px; /* Adjusted max-width */
-    width: 90%; /* Adjusted width */
-    background-color: #1a1a1a; /* Dark gray background */
-    border-radius: 15px; /* Reduced border radius */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 1); /* Box shadow */
-    overflow: hidden;
-    position: relative;
-    margin: auto; /* Center horizontally */
-    margin-top: 1px; /* Adjusted margin to move the player up */
+  max-width: 600px; /* Adjusted max-width */
+  width: 90%; /* Adjusted width */
+  background-color: #1a1a1a; /* Dark gray background */
+  border-radius: 15px; /* Reduced border radius */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 1); /* Box shadow */
+  overflow: hidden;
+  position: relative;
+  margin: auto; /* Center horizontally */
+  margin-top: 20px; /* Adjusted margin to move the player up */
 }
 
 /* Title styling */
 .lofi-title {
-    font-family: 'Great Vibes', cursive; /* Cool cursive font */
-    font-size: 3em; /* Adjust font size as needed */
-    text-align: center; /* Center align the text */
-    margin-top: 30px; /* Adjusted margin to move the title down */
-    margin-bottom: 10px; /* Adjusted margin */
-    color: #FA5252; /* Adjust color as needed */
+  font-family: 'Great Vibes', cursive; /* Cool cursive font */
+  font-size: 3em; /* Adjust font size as needed */
+  text-align: center; /* Center align the text */
+  margin-top: 30px; /* Adjusted margin to move the title down */
+  margin-bottom: 10px; /* Adjusted margin */
+  color: #FA5252; /* Adjust color as needed */
 }
 
 /* Controls */
 .controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #1a1a1a; /* Semi-transparent dark background for controls */
-    padding: 20px; /* Reduced padding */
-    justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a1a; /* Semi-transparent dark background for controls */
+  padding: 20px; /* Reduced padding */
+  justify-content: space-evenly;
 }
 
 .prev-next {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .play-pause {
-    width: 50px; /* Adjusted width to match previous and next buttons */
-    height: 50px; /* Adjusted height to match previous and next buttons */
-    cursor: pointer;
-    justify-content: center;
-    margin-right: 30px;
-    margin-bottom: 30px;
+  width: 50px; /* Adjusted width to match previous and next buttons */
+  height: 50px; /* Adjusted height to match previous and next buttons */
+  cursor: pointer;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .volume {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px; /* Reduced padding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Reduced padding */
 }
 
 .volume-icon {
-    margin-right: 20px; /* Adjusted margin */
+  margin-right: 20px; /* Adjusted margin */
 }
 
 .volume-slider {
-    width: 200px; /* Reduced width */
+  width: 200px; /* Reduced width */
 }
 
 .progress-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 10px; /* Reduced height */
-    background-color: white; /* Darker gray progress bar */
-    border-radius: 5px; /* Reduced border radius */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px; /* Reduced height */
+  background-color: white; /* Darker gray progress bar */
+  border-radius: 5px; /* Reduced border radius */
 }
 
 .progress {
-    height: 100%;
-    background-color: #FA5252; /* Red progress bar color */
-    border-radius: 5px; /* Reduced border radius */
-    width: 0%; /* Initial progress width */
+  height: 100%;
+  background-color: #FA5252; /* Red progress bar color */
+  border-radius: 5px; /* Reduced border radius */
+  width: 0%; /* Initial progress width */
 }
 
-.volume-slider input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 10px; /* Reduced height */
-    background-color: #FA5252;
-    border-radius: 2.5px; /* Reduced border radius */
-    outline: none;
+.volume-slider input[type='range'] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px; /* Reduced height */
+  background-color: #FA5252;
+  border-radius: 2.5px; /* Reduced border radius */
+  outline: none;
 }
 
-.volume-slider input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 30px; /* Reduced width */
-    height: 30px; /* Reduced height */
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
+.volume-slider input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px; /* Reduced width */
+  height: 30px; /* Reduced height */
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
 }
