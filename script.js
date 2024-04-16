@@ -3,12 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const playPauseBtn = document.getElementById("playPauseBtn");
   const volumeSlider = document.getElementById("volumeSlider");
   const progressBar = document.getElementById("progress");
-  const prevBtn = document.querySelector(".prev-next:nth-child(1)");
-  const nextBtn = document.querySelector(".prev-next:nth-child(3)");
+  const rewindBtn = document.getElementById("rewindBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const shuffleBtn = document.getElementById("shuffleBtn");
 
   let isPlaying = false;
   let currentSongIndex = 0;
-  const playlist = [
+  let playlist = [
     "public/1.mp3",
     "public/2.mp3",
     "public/3.mp3",
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "public/25.mp3",
     "public/26.mp3",
     "public/234.mp3",
-  ]; // Adjusted paths for files in the public folder
+  ];
 
   function playSong(songIndex) {
     lofiAudio.src = playlist[songIndex];
@@ -57,9 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updatePlayPauseButton() {
     if (isPlaying) {
-      playPauseBtn.classList.add("playing"); // Add 'playing' class when playing
+      playPauseBtn.classList.add("playing");
     } else {
-      playPauseBtn.classList.remove("playing"); // Remove 'playing' class when paused
+      playPauseBtn.classList.remove("playing");
     }
   }
 
@@ -74,9 +76,40 @@ document.addEventListener("DOMContentLoaded", function () {
     playSong(currentSongIndex);
   }
 
+  function shufflePlaylist() {
+    playlist = shuffleArray(playlist);
+    playSong(0); // Start playing the shuffled playlist from the beginning
+  }
+
+  function shuffleArray(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  function rewindSong() {
+    lofiAudio.currentTime = 0; // Set current time to start of the song
+  }
+
   playPauseBtn.addEventListener("click", togglePlayPause);
   nextBtn.addEventListener("click", playNextSong);
   prevBtn.addEventListener("click", playPrevSong);
+  rewindBtn.addEventListener("click", rewindSong);
+  shuffleBtn.addEventListener("click", shufflePlaylist);
 
   volumeSlider.addEventListener("input", function () {
     lofiAudio.volume = volumeSlider.value;
