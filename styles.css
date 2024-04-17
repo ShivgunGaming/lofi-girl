@@ -5,7 +5,7 @@ body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #1a1a1a; /* Dark gray background */
   color: #fff; /* White text */
-  overflow-x: hidden; /* Remove horizontal scrollbar */
+  overflow: hidden; /* Hide both horizontal and vertical scrollbars */
 }
 
 .lofi-title {
@@ -24,17 +24,14 @@ body, html {
   margin-bottom: 50px; /* Adjusted margin to move the subtitle up */
 }
 
-/* Container styling */
 .container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Align items to the start of the container vertically */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
   min-height: 100vh; /* Ensure the container is at least the height of the viewport */
-  max-height: 100vh; /* Ensure the container does not exceed the height of the viewport */
-  overflow-y: hidden; /* Hide vertical scrollbar */
 }
 
-/* Lofi player styling */
 .lofi-player {
   max-width: 600px; /* Adjusted max-width */
   width: 90%; /* Adjusted width */
@@ -44,20 +41,13 @@ body, html {
   overflow: hidden;
   position: relative;
   margin: auto; /* Center horizontally */
-  margin-top: 20px; /* Adjusted margin to move the player up */
+  margin-bottom: 20px; /* Add margin at the bottom to separate the player and paragraph */
 }
 
-/* Title styling */
-.lofi-title {
-  font-family: 'Great Vibes', cursive; /* Cool cursive font */
-  font-size: 3em; /* Adjust font size as needed */
-  text-align: center; /* Center align the text */
-  margin-top: 30px; /* Adjusted margin to move the title down */
-  margin-bottom: 10px; /* Adjusted margin */
-  color: #FA5252; /* Adjust color as needed */
+.controls img:hover {
+  filter: brightness(1.2); /* Increase brightness on hover */
 }
 
-/* Controls */
 .controls {
   display: flex;
   align-items: center;
