@@ -12,7 +12,7 @@ body, html {
   font-family: 'Great Vibes', cursive; /* Cool cursive font */
   font-size: 3em; /* Adjust font size as needed */
   text-align: center; /* Center align the text */
-  margin-top: 50px; /* Adjusted margin to move the title down */
+  margin-top: 20px; /* Adjusted margin to move the title up */
   color: #FA5252; /* Adjust color as needed */
 }
 
@@ -41,7 +41,7 @@ body, html {
   overflow: hidden;
   position: relative;
   margin: auto; /* Center horizontally */
-  margin-bottom: 20px; /* Add margin at the bottom to separate the player and paragraph */
+  margin-bottom: 20px; /* Adjusted margin to move the player up */
 }
 
 .controls img:hover {
