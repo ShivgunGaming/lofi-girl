@@ -5,7 +5,7 @@ body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #1a1a1a; /* Dark gray background */
   color: #fff; /* White text */
-  overflow: hidden; /* Hide both horizontal and vertical scrollbars */
+  overflow-x: hidden; /* Hide both horizontal and vertical scrollbars */
 }
 
 .lofi-title {
@@ -118,4 +118,22 @@ body, html {
   background-color: white;
   border-radius: 50%;
   cursor: pointer;
+}
+
+/* Add this CSS for track duration display */
+.track-duration {
+  text-align: center;
+  color: #FA5252;
+  font-size: 1.2em; /* Increased font size */
+  margin-bottom: 10px;
+}
+
+.track-duration span {
+  font-weight: bold;
+  font-size: 1.4em; /* Increased font size */
+}
+
+.track-duration #currentTime::before,
+.track-duration #totalDuration::before {
+  content: "";
 }
