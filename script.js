@@ -6,40 +6,72 @@ document.addEventListener("DOMContentLoaded", function () {
   const rewindBtn = document.getElementById("rewindBtn");
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
-  const shuffleBtn = document.getElementById("shuffleBtn");
   const currentTimeDisplay = document.getElementById("currentTime");
   const totalDurationDisplay = document.getElementById("totalDuration");
+  const trackTitleDisplay = document.getElementById("trackTitle");
 
   let isPlaying = false;
   let currentSongIndex = 0;
   let playlist = [
-    "public/1.mp3",
-    "public/2.mp3",
-    "public/3.mp3",
-    "public/4.mp3",
-    "public/5.mp3",
-    "public/6.mp3",
-    "public/7.mp3",
-    "public/8.mp3",
-    "public/9.mp3",
-    "public/10.mp3",
-    "public/11.mp3",
-    "public/12.mp3",
-    "public/13.mp3",
-    "public/14.mp3",
-    "public/15.mp3",
-    "public/16.mp3",
-    "public/17.mp3",
-    "public/18.mp3",
-    "public/19.mp3",
-    "public/20.mp3",
-    "public/21.mp3",
-    "public/22.mp3",
-    "public/23.mp3",
-    "public/24.mp3",
-    "public/25.mp3",
-    "public/26.mp3",
-    "public/234.mp3",
+    "public/01 No Spirit - That Time Of The Year (Kupla Master) (online-audio-converter.com).mp3",
+    "public/02 Dimension 32 x Quantum Break - Something_s Magical (Kupla Master).mp3",
+    "public/03 xander. X Lucid Keys - Snowballs (Kupla Master).mp3",
+    "public/04 Thaehan - Waiting By The Fireplace (Kupla Master).mp3",
+    "public/05 xander. X Lucid Keys - Snow on the Trees (Kupla Master).mp3",
+    "public/06 Softy x Two Scents - Snowdrops (Kupla Master).mp3",
+    "public/07 eleven x Fugee - December To Remember (Kupla Master).mp3",
+    "public/08 Tibeauthetraveler x maeLstro x Lucie Cravero - Gentle Snowflakes (Kupla Master).mp3",
+    "public/09 Thaehan - Letter To Santa (Kupla Master).mp3",
+    "public/10 Lucid Keys - Mistletoe Wonder (Kupla Master).mp3",
+    "public/11 No Spirit - Wishlist (Kupla Master).mp3",
+    "public/12 HoKø - Red Hat (Kupla Master).mp3",
+    "public/13 Lawrence Walther x vhskid. - Gingerbread Dreams (Kupla Master).mp3",
+    "public/14 Jam_addict x Monocloud - Christmas Lullaby (Kupla Master).mp3",
+    "public/16 Flâneur x Marsquake x Dani Catalá - Warmth Of The Heart (Kupla Master).mp3",
+    "public/17 Odd Panda x Marsquake x No Spirit - Contemplative Times (Kupla Master).mp3",
+    "public/18 Nothingtosay x Klemsis - December Wishes (Kupla Master).mp3",
+    "public/19 Flâneur x Marsquake x Dani Catalá - Firewood And Hot Chocolate (Kupla Master).mp3",
+    "public/20 Lucid Keys - Holiday Cheer (Kupla Master).mp3",
+    "public/21 HoKø x Lucie Cravero - Santa_s Shop (Kupla Master).mp3",
+    "public/22 Strong.AL_ x Simber x Lock - Warmth Of Christmas Haven (Kupla Master).mp3",
+    "public/23 Softy x So.Lo - Snowy Hills (Kupla Master).mp3",
+    "public/24 Kainbeats - Am Kaminknistern (Kupla Master).mp3",
+    "public/25 Nothingtosay x Klemsis - Snowy Tree (Kupla Master).mp3",
+    "public/26 Softy x Jazzyhan - Winter Time, Now (Kupla Master).mp3",
+    "public/27 comodo - Mistletoe (Kupla Master).mp3",
+    "public/28 Quist x Lofty - Seeing You In Every Snowflake (Kupla Master).mp3",
+  ];
+
+  // Array of custom track titles corresponding to each track in the playlist
+  let trackTitles = [
+    "No Spirit - That Time Of The Year",
+    "Dimension 32 x Quantum Break - Something_s Magical",
+    "xander. X Lucid Keys - Snowballs",
+    "Thaehan - Waiting By The Fireplace",
+    "xander. X Lucid Keys - Snow on the Trees",
+    "Softy x Two Scents - Snowdrops",
+    "eleven x Fugee - December To Remember",
+    "Tibeauthetraveler x maeLstro x Lucie Cravero - Gentle Snowflakes",
+    "Thaehan - Letter To Santa",
+    "Lucid Keys - Mistletoe Wonder",
+    "No Spirit - Wishlist",
+    "HoKø - Red Hat",
+    "Lawrence Walther x vhskid. - Gingerbread Dreams",
+    "Jam_addict x Monocloud - Christmas Lullaby",
+    "Flâneur x Marsquake x Dani Catalá - Warmth Of The Heart",
+    "Odd Panda x Marsquake x No Spirit - Contemplative Times",
+    "Nothingtosay x Klemsis - December Wishes",
+    "Flâneur x Marsquake x Dani Catalá - Firewood And Hot Chocolate",
+    "Lucid Keys - Holiday Cheer",
+    "HoKø x Lucie Cravero - Santa_s Shop",
+    "Strong.AL_ x Simber x Lock - Warmth Of Christmas Haven",
+    "Softy x So.Lo - Snowy Hills",
+    "Kainbeats - Am Kaminknistern",
+    "Nothingtosay x Klemsis - Snowy Tree",
+    "Softy x Jazzyhan - Winter Time, Now",
+    "comodo - Mistletoe",
+    "Quist x Lofty - Seeing You In Every Snowflake",
+    // Add more custom titles here
   ];
 
   function playSong(songIndex) {
@@ -47,6 +79,13 @@ document.addEventListener("DOMContentLoaded", function () {
     lofiAudio.play();
     isPlaying = true;
     updatePlayPauseButton();
+    updateTrackTitle(songIndex);
+  }
+
+  function updateTrackTitle(songIndex) {
+    // Use the custom track title from the trackTitles array
+    const currentTrackTitle = trackTitles[songIndex];
+    trackTitleDisplay.textContent = currentTrackTitle;
   }
 
   function togglePlayPause() {
@@ -78,122 +117,33 @@ document.addEventListener("DOMContentLoaded", function () {
     playSong(currentSongIndex);
   }
 
-  function shufflePlaylist() {
-    playlist = shuffleArray(playlist);
-    playSong(0); // Start playing the shuffled playlist from the beginning
-  }
-
-  function shuffleArray(array) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  }
-
-  // Function to format time (e.g., from seconds to "mm:ss")
   function formatTime(time) {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
 
-  // Update track duration display
   function updateTrackDurationDisplay() {
     currentTimeDisplay.textContent = formatTime(lofiAudio.currentTime);
     totalDurationDisplay.textContent = formatTime(lofiAudio.duration);
   }
 
-  // Update track duration display when the audio is loaded
   lofiAudio.addEventListener("loadedmetadata", updateTrackDurationDisplay);
-
-  // Update track duration display while playing
   lofiAudio.addEventListener("timeupdate", updateTrackDurationDisplay);
 
   function rewindSong() {
-    lofiAudio.currentTime = 0; // Set current time to start of the song
+    lofiAudio.currentTime = 0;
   }
 
-  // Implement sharing functionality
-  document.querySelectorAll(".share-btn").forEach((btn) => {
-    btn.addEventListener("click", shareContent);
-  });
-
-  function shareContent(event) {
-    const platform = event.target.dataset.platform;
-    const content = {
-      title: "Check out this lo-fi track!",
-      url: "https://example.com/lofi-track", // Replace with actual track URL
-      description: "Enjoy some relaxing lo-fi music!",
-    };
-
-    switch (platform) {
-      case "facebook":
-        shareOnFacebook(content);
-        break;
-      case "twitter":
-        shareOnTwitter(content);
-        break;
-      case "instagram":
-        shareOnInstagram(content);
-        break;
-      // Add cases for other platforms
-      default:
-        console.error("Unsupported platform");
-    }
-  }
-
-  function shareOnFacebook(content) {
-    const url = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(
-      content.url
-    )}`;
-    openShareDialog(url);
-  }
-
-  function shareOnTwitter(content) {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      content.title
-    )}&url=${encodeURIComponent(content.url)}`;
-    openShareDialog(url);
-  }
-
-  function shareOnInstagram(content) {
-    // Instagram sharing requires a different approach due to API limitations
-    // You can guide users to manually share the content on Instagram
-    alert(
-      "To share on Instagram, please open the app and manually create a post."
-    );
-  }
-
-  function openShareDialog(url) {
-    window.open(url, "_blank", "width=600,height=400");
-  }
+  playSong(currentSongIndex);
 
   playPauseBtn.addEventListener("click", togglePlayPause);
   nextBtn.addEventListener("click", playNextSong);
   prevBtn.addEventListener("click", playPrevSong);
   rewindBtn.addEventListener("click", rewindSong);
-  shuffleBtn.addEventListener("click", shufflePlaylist);
 
   volumeSlider.addEventListener("input", function () {
     lofiAudio.volume = volumeSlider.value;
-  });
-
-  lofiAudio.addEventListener("timeupdate", function () {
-    const progress = (lofiAudio.currentTime / lofiAudio.duration) * 100;
-    progressBar.style.width = `${progress}%`;
   });
 
   progressBar.addEventListener("click", function (e) {
@@ -202,10 +152,12 @@ document.addEventListener("DOMContentLoaded", function () {
     lofiAudio.currentTime = seekPosition;
   });
 
+  lofiAudio.addEventListener("timeupdate", function () {
+    const progress = (lofiAudio.currentTime / lofiAudio.duration) * 100;
+    progressBar.style.width = `${progress}%`;
+  });
+
   lofiAudio.addEventListener("ended", function () {
     playNextSong();
   });
-
-  // Start playing the first song
-  playSong(currentSongIndex);
 });
