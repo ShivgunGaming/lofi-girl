@@ -73,8 +73,8 @@ body, html {
 .volume {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px; /* Reduced padding */
+  justify-content: space-around; /* Updated to space between */
+  padding: 10px; /* Reduced padding */
 }
 
 .volume-icon {
@@ -136,4 +136,16 @@ body, html {
 .track-duration #currentTime::before,
 .track-duration #totalDuration::before {
   content: "";
+}
+
+/* Add this CSS for track title display */
+.track-title {
+  text-align: center;
+  color: #FA5252;
+  font-size: 1.4em; /* Adjust font size as needed */
+  margin-bottom: 10px;
+}
+
+.track-title span {
+  font-weight: bold;
 }
