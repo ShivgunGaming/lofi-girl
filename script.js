@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   const shuffleBtn = document.getElementById("shuffleBtn");
+  const currentTimeDisplay = document.getElementById("currentTime");
+  const totalDurationDisplay = document.getElementById("totalDuration");
 
   let isPlaying = false;
   let currentSongIndex = 0;
@@ -101,8 +103,82 @@ document.addEventListener("DOMContentLoaded", function () {
     return array;
   }
 
+  // Function to format time (e.g., from seconds to "mm:ss")
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  }
+
+  // Update track duration display
+  function updateTrackDurationDisplay() {
+    currentTimeDisplay.textContent = formatTime(lofiAudio.currentTime);
+    totalDurationDisplay.textContent = formatTime(lofiAudio.duration);
+  }
+
+  // Update track duration display when the audio is loaded
+  lofiAudio.addEventListener("loadedmetadata", updateTrackDurationDisplay);
+
+  // Update track duration display while playing
+  lofiAudio.addEventListener("timeupdate", updateTrackDurationDisplay);
+
   function rewindSong() {
     lofiAudio.currentTime = 0; // Set current time to start of the song
+  }
+
+  // Implement sharing functionality
+  document.querySelectorAll(".share-btn").forEach((btn) => {
+    btn.addEventListener("click", shareContent);
+  });
+
+  function shareContent(event) {
+    const platform = event.target.dataset.platform;
+    const content = {
+      title: "Check out this lo-fi track!",
+      url: "https://example.com/lofi-track", // Replace with actual track URL
+      description: "Enjoy some relaxing lo-fi music!",
+    };
+
+    switch (platform) {
+      case "facebook":
+        shareOnFacebook(content);
+        break;
+      case "twitter":
+        shareOnTwitter(content);
+        break;
+      case "instagram":
+        shareOnInstagram(content);
+        break;
+      // Add cases for other platforms
+      default:
+        console.error("Unsupported platform");
+    }
+  }
+
+  function shareOnFacebook(content) {
+    const url = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(
+      content.url
+    )}`;
+    openShareDialog(url);
+  }
+
+  function shareOnTwitter(content) {
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      content.title
+    )}&url=${encodeURIComponent(content.url)}`;
+    openShareDialog(url);
+  }
+
+  function shareOnInstagram(content) {
+    // Instagram sharing requires a different approach due to API limitations
+    // You can guide users to manually share the content on Instagram
+    alert(
+      "To share on Instagram, please open the app and manually create a post."
+    );
+  }
+
+  function openShareDialog(url) {
+    window.open(url, "_blank", "width=600,height=400");
   }
 
   playPauseBtn.addEventListener("click", togglePlayPause);
