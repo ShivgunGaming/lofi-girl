@@ -1,59 +1,57 @@
-/* Global styling */
 body, html {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1a1a1a; /* Dark gray background */
-  color: #fff; /* White text */
-  overflow-x: hidden; /* Hide both horizontal and vertical scrollbars */
+  background-color: #1a1a1a;
+  color: #fff;
+  overflow-x: hidden;
 }
 
 .lofi-title {
-  font-family: 'Great Vibes', cursive; /* Cool cursive font */
-  font-size: 3em; /* Adjust font size as needed */
-  text-align: center; /* Center align the text */
-  margin-top: 20px; /* Adjusted margin to move the title up */
-  color: #FA5252; /* Adjust color as needed */
+  font-family: 'Great Vibes', cursive;
+  font-size: 3em;
+  text-align: center;
+  margin-top: 20px;
+  color: #FA5252;
 }
 
 .lofi-subtitle {
-  font-family: 'Great Vibes', cursive; /* Cool cursive font */
-  font-size: 2em; /* Adjust font size as needed */
-  text-align: center; /* Center align the text */
-  color: #FA5252; /* Adjust color as needed */
-  margin-bottom: 50px; /* Adjusted margin to move the subtitle up */
+  font-family: 'Great Vibes', cursive;
+  font-size: 2em;
+  text-align: center;
+  color: #FA5252;
+  margin-bottom: 50px;
 }
 
 .container {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center children horizontally */
-  justify-content: center; /* Center children vertically */
-  min-height: 100vh; /* Ensure the container is at least the height of the viewport */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .lofi-player {
-  max-width: 600px; /* Adjusted max-width */
-  width: 90%; /* Adjusted width */
-  background-color: #1a1a1a; /* Dark gray background */
-  border-radius: 15px; /* Reduced border radius */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 1); /* Box shadow */
+  max-width: 600px;
+  width: 90%;
+  background-color: #1a1a1a;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
   overflow: hidden;
   position: relative;
-  margin: auto; /* Center horizontally */
-  margin-bottom: 20px; /* Adjusted margin to move the player up */
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 .controls img:hover {
-  filter: brightness(1.2); /* Increase brightness on hover */
+  filter: brightness(1.2);
 }
 
 .controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #1a1a1a; /* Semi-transparent dark background for controls */
-  padding: 20px; /* Reduced padding */
+  background-color: #1a1a1a;
+  padding: 20px;
   justify-content: space-evenly;
 }
 
@@ -63,8 +61,8 @@ body, html {
 }
 
 .play-pause {
-  width: 50px; /* Adjusted width to match previous and next buttons */
-  height: 50px; /* Adjusted height to match previous and next buttons */
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   justify-content: center;
   margin-bottom: 30px;
@@ -73,64 +71,71 @@ body, html {
 .volume {
   display: flex;
   align-items: center;
-  justify-content: space-around; /* Updated to space between */
-  padding: 10px; /* Reduced padding */
+  justify-content: space-around;
+  padding: 10px;
 }
 
 .volume-icon {
-  margin-right: 20px; /* Adjusted margin */
+  margin-right: 20px;
 }
 
 .volume-slider {
-  width: 200px; /* Reduced width */
+  width: 200px;
 }
 
 .progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 10px; /* Reduced height */
-  background-color: white; /* Darker gray progress bar */
-  border-radius: 5px; /* Reduced border radius */
+  height: 10px;
+  background-color: #1a1a1a;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden; /* Ensure smooth animation overflow */
 }
 
 .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  background-color: #FA5252; /* Red progress bar color */
-  border-radius: 5px; /* Reduced border radius */
-  width: 0%; /* Initial progress width */
+  background-color: #FA5252;
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.1s linear; /* Smooth transition */
+}
+
+.progress:hover {
+  background-color: #FF6B6B; /* Hover effect */
 }
 
 .volume-slider input[type='range'] {
   -webkit-appearance: none;
   width: 100%;
-  height: 10px; /* Reduced height */
+  height: 10px;
   background-color: #FA5252;
-  border-radius: 2.5px; /* Reduced border radius */
+  border-radius: 2.5px;
   outline: none;
 }
 
 .volume-slider input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 30px; /* Reduced width */
-  height: 30px; /* Reduced height */
+  width: 30px;
+  height: 30px;
   background-color: white;
   border-radius: 50%;
   cursor: pointer;
 }
 
-/* Add this CSS for track duration display */
 .track-duration {
   text-align: center;
   color: #FA5252;
-  font-size: 1.2em; /* Increased font size */
+  font-size: 1.2em;
   margin-bottom: 10px;
 }
 
 .track-duration span {
   font-weight: bold;
-  font-size: 1.4em; /* Increased font size */
+  font-size: 1.4em;
 }
 
 .track-duration #currentTime::before,
@@ -138,11 +143,10 @@ body, html {
   content: "";
 }
 
-/* Add this CSS for track title display */
 .track-title {
   text-align: center;
   color: #FA5252;
-  font-size: 1.4em; /* Adjust font size as needed */
+  font-size: 1.4em;
   margin-bottom: 10px;
 }
 
