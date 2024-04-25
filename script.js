@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateTrackTitle(songIndex) {
-    // Use the custom track title from the trackTitles array
     const currentTrackTitle = trackTitles[songIndex];
     trackTitleDisplay.textContent = currentTrackTitle;
   }
@@ -129,10 +128,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   lofiAudio.addEventListener("loadedmetadata", updateTrackDurationDisplay);
-  lofiAudio.addEventListener("timeupdate", updateTrackDurationDisplay);
+  lofiAudio.addEventListener("timeupdate", function () {
+    updateTrackDurationDisplay();
+    updateProgressBar();
+  });
 
   function rewindSong() {
-    lofiAudio.currentTime = 0;
+    lofiAudio.currentTime -= 10; // Rewind 10 seconds
   }
 
   playSong(currentSongIndex);
@@ -147,15 +149,45 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   progressBar.addEventListener("click", function (e) {
-    const seekPosition =
-      (e.offsetX / progressBar.offsetWidth) * lofiAudio.duration;
-    lofiAudio.currentTime = seekPosition;
+    const rect = progressBar.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = offsetX / width;
+    const seekTime = percentage * lofiAudio.duration;
+    lofiAudio.currentTime = seekTime;
+    updateProgressBar();
   });
 
-  lofiAudio.addEventListener("timeupdate", function () {
+  let isDragging = false;
+  progressBar.addEventListener("mousedown", function (e) {
+    isDragging = true;
+    updateProgress(e);
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    if (isDragging) {
+      updateProgress(e);
+    }
+  });
+
+  document.addEventListener("mouseup", function () {
+    isDragging = false;
+  });
+
+  function updateProgress(e) {
+    const rect = progressBar.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = Math.min(1, Math.max(0, offsetX / width));
+    const seekTime = percentage * lofiAudio.duration;
+    lofiAudio.currentTime = seekTime;
+    updateProgressBar();
+  }
+
+  function updateProgressBar() {
     const progress = (lofiAudio.currentTime / lofiAudio.duration) * 100;
     progressBar.style.width = `${progress}%`;
-  });
+  }
 
   lofiAudio.addEventListener("ended", function () {
     playNextSong();
