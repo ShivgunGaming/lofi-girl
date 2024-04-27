@@ -153,3 +153,15 @@ body, html {
 .track-title span {
   font-weight: bold;
 }
+
+.loop-btn {
+  cursor: pointer;
+}
+
+.loop-btn img:hover {
+  filter: brightness(1.2);
+}
+
+.looping img {
+  filter: brightness(1.5);
+}
