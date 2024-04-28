@@ -116,6 +116,27 @@ document.addEventListener("DOMContentLoaded", function () {
     trackTitleDisplay.textContent = currentTrackTitle;
   }
 
+  document.addEventListener("keydown", function (event) {
+    // Define key codes for the shortcuts
+    const SPACEBAR_KEY = 32;
+    const LEFT_ARROW_KEY = 37;
+    const RIGHT_ARROW_KEY = 39;
+
+    // Handle keyboard shortcuts
+    switch (event.keyCode) {
+      case SPACEBAR_KEY:
+        togglePlayPause();
+        break;
+      case LEFT_ARROW_KEY:
+        playPrevSong();
+        break;
+      case RIGHT_ARROW_KEY:
+        playNextSong();
+        break;
+      // Add more cases for other shortcuts if needed
+    }
+  });
+
   function togglePlayPause() {
     if (isPlaying) {
       lofiAudio.pause();
