@@ -9,9 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const currentTimeDisplay = document.getElementById("currentTime");
   const totalDurationDisplay = document.getElementById("totalDuration");
   const trackTitleDisplay = document.getElementById("trackTitle");
+  const loopBtn = document.getElementById("loopBtn");
 
   let isPlaying = false;
   let currentSongIndex = 0;
+  let isLooping = false;
   let playlist = [
     "public/01 No Spirit - That Time Of The Year (Kupla Master) (online-audio-converter.com).mp3",
     "public/02 Dimension 32 x Quantum Break - Something_s Magical (Kupla Master).mp3",
@@ -74,6 +76,33 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add more custom titles here
   ];
 
+  function toggleLoop() {
+    isLooping = !isLooping;
+    updateLoopButton();
+  }
+
+  function updateLoopButton() {
+    if (isLooping) {
+      loopBtn.classList.add("looping");
+    } else {
+      loopBtn.classList.remove("looping");
+    }
+  }
+
+  function handleLooping() {
+    if (isLooping && lofiAudio.currentTime >= lofiAudio.duration - 0.5) {
+      playSong(currentSongIndex);
+    }
+  }
+
+  loopBtn.addEventListener("click", toggleLoop);
+
+  // Add this line to the event listener for timeupdate
+  lofiAudio.addEventListener("timeupdate", function () {
+    // Your existing code...
+    handleLooping();
+  });
+
   function playSong(songIndex) {
     lofiAudio.src = playlist[songIndex];
     lofiAudio.play();
@@ -86,6 +115,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentTrackTitle = trackTitles[songIndex];
     trackTitleDisplay.textContent = currentTrackTitle;
   }
+
+  document.addEventListener("keydown", function (event) {
+    // Define key codes for the shortcuts
+    const SPACEBAR_KEY = 32;
+    const LEFT_ARROW_KEY = 37;
+    const RIGHT_ARROW_KEY = 39;
+
+    // Handle keyboard shortcuts
+    switch (event.keyCode) {
+      case SPACEBAR_KEY:
+        togglePlayPause();
+        break;
+      case LEFT_ARROW_KEY:
+        playPrevSong();
+        break;
+      case RIGHT_ARROW_KEY:
+        playNextSong();
+        break;
+      // Add more cases for other shortcuts if needed
+    }
+  });
 
   function togglePlayPause() {
     if (isPlaying) {
