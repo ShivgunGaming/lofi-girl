@@ -38,10 +38,10 @@ body, html {
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
   overflow: hidden;
-  position: relative;
-  margin: auto;
-  margin-bottom: 20px;
-  margin-top: 20px; /* Adjust this value to move the player up */
+  position: absolute;
+  top: 50%; /* Adjust this value to move the player up or down */
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .controls img:hover {
