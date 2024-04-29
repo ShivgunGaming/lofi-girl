@@ -117,25 +117,50 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.addEventListener("keydown", function (event) {
-    // Define key codes for the shortcuts
+    // Define key codes for the new shortcuts
     const SPACEBAR_KEY = 32;
-    const LEFT_ARROW_KEY = 37;
-    const RIGHT_ARROW_KEY = 39;
+  const LEFT_ARROW_KEY = 37;
+  const RIGHT_ARROW_KEY = 39;
+  const UP_ARROW_KEY = 38;
+  const DOWN_ARROW_KEY = 40;
+  const L_KEY = 76;
 
-    // Handle keyboard shortcuts
-    switch (event.keyCode) {
-      case SPACEBAR_KEY:
-        togglePlayPause();
-        break;
-      case LEFT_ARROW_KEY:
-        playPrevSong();
-        break;
-      case RIGHT_ARROW_KEY:
-        playNextSong();
-        break;
-      // Add more cases for other shortcuts if needed
-    }
+  switch (event.keyCode) {
+    case SPACEBAR_KEY:
+      togglePlayPause();
+      break;
+    case LEFT_ARROW_KEY:
+      playPrevSong();
+      break;
+    case RIGHT_ARROW_KEY:
+      playNextSong();
+      break;
+    case UP_ARROW_KEY:
+      increaseVolume();
+      break;
+    case DOWN_ARROW_KEY:
+      decreaseVolume();
+      break;
+    case L_KEY:
+      toggleLoop();
+      break;
+    // Add more cases for other shortcuts if needed
+  }
   });
+
+  function increaseVolume() {
+    // Increase volume by a small increment
+    lofiAudio.volume = Math.min(1, lofiAudio.volume + 0.1);
+    // Update volume slider position
+    volumeSlider.value = lofiAudio.volume;
+  }
+
+  function decreaseVolume() {
+    // Decrease volume by a small increment
+    lofiAudio.volume = Math.max(0, lofiAudio.volume - 0.1);
+    // Update volume slider position
+    volumeSlider.value = lofiAudio.volume;
+  }
 
   function togglePlayPause() {
     if (isPlaying) {
