@@ -29,7 +29,7 @@ body, html {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  margin-top: 20px; /* Adjust this value as needed */
+  margin: 20px; /* Adjust this value as needed */
 }
 
 .lofi-player {
@@ -40,7 +40,7 @@ body, html {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
   overflow: hidden;
   position: absolute;
-  top: 50%; /* Adjust this value to move the player up or down */
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -92,7 +92,7 @@ body, html {
   background-color: #1a1a1a;
   border-radius: 5px;
   cursor: pointer;
-  overflow: hidden; /* Ensure smooth animation overflow */
+  overflow: hidden;
 }
 
 .progress {
@@ -103,11 +103,11 @@ body, html {
   background-color: #FA5252;
   border-radius: 5px;
   width: 0%;
-  transition: width 0.1s linear; /* Smooth transition */
+  transition: width 0.1s linear;
 }
 
 .progress:hover {
-  background-color: #FF6B6B; /* Hover effect */
+  background-color: #FF6B6B;
 }
 
 .volume-slider input[type='range'] {
