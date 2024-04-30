@@ -63,12 +63,13 @@ body, html {
 }
 
 .play-pause {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
   justify-content: center;
-  margin-bottom: 40px; /* Increase margin for more spacing */
+  margin-bottom: 20px; /* Decreased margin for vertical alignment */
 }
+
 
 .volume {
   display: flex;
