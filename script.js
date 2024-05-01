@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const totalDurationDisplay = document.getElementById("totalDuration");
   const trackTitleDisplay = document.getElementById("trackTitle");
   const loopBtn = document.getElementById("loopBtn");
+  const band1Slider = document.getElementById("band1");
+  const band2Slider = document.getElementById("band2");
 
   let isPlaying = false;
   let currentSongIndex = 0;
@@ -76,6 +78,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add more custom titles here
   ];
 
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  const source = audioContext.createMediaElementSource(lofiAudio);
+  const equalizer = audioContext.createBiquadFilter();
+  equalizer.type = "peaking";
+  equalizer.frequency.value = 1000;
+  equalizer.gain.value = 0;
+  equalizer.Q.value = 1;
+
+  source.connect(equalizer);
+  equalizer.connect(audioContext.destination);
+
+  function adjustEqualizer(bandIndex, gainValue) {
+    const minGain = -40;
+    const maxGain = 40;
+    const frequencyRange = [30, 18000];
+    const frequency = Math.pow(2, bandIndex) * frequencyRange[0];
+    gainValue = Math.max(minGain, Math.min(maxGain, gainValue));
+    equalizer.gain.setValueAtTime(gainValue, audioContext.currentTime);
+    console.log(`Adjusted gain for band ${bandIndex}: ${gainValue} dB`);
+  }
+
+  band1Slider.addEventListener("input", function () {
+    adjustEqualizer(0, parseFloat(this.value));
+  });
+
+  band2Slider.addEventListener("input", function () {
+    adjustEqualizer(1, parseFloat(this.value));
+  });
+
   function toggleLoop() {
     isLooping = !isLooping;
     updateLoopButton();
@@ -97,9 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loopBtn.addEventListener("click", toggleLoop);
 
-  // Add this line to the event listener for timeupdate
   lofiAudio.addEventListener("timeupdate", function () {
-    // Your existing code...
     handleLooping();
   });
 
@@ -117,50 +147,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.addEventListener("keydown", function (event) {
-    // Define key codes for the new shortcuts
     const SPACEBAR_KEY = 32;
-  const LEFT_ARROW_KEY = 37;
-  const RIGHT_ARROW_KEY = 39;
-  const UP_ARROW_KEY = 38;
-  const DOWN_ARROW_KEY = 40;
-  const L_KEY = 76;
+    const LEFT_ARROW_KEY = 37;
+    const RIGHT_ARROW_KEY = 39;
+    const UP_ARROW_KEY = 38;
+    const DOWN_ARROW_KEY = 40;
+    const L_KEY = 76;
 
-  switch (event.keyCode) {
-    case SPACEBAR_KEY:
-      togglePlayPause();
-      break;
-    case LEFT_ARROW_KEY:
-      playPrevSong();
-      break;
-    case RIGHT_ARROW_KEY:
-      playNextSong();
-      break;
-    case UP_ARROW_KEY:
-      increaseVolume();
-      break;
-    case DOWN_ARROW_KEY:
-      decreaseVolume();
-      break;
-    case L_KEY:
-      toggleLoop();
-      break;
-    // Add more cases for other shortcuts if needed
-  }
+    switch (event.keyCode) {
+      case SPACEBAR_KEY:
+        togglePlayPause();
+        break;
+      case LEFT_ARROW_KEY:
+        playPrevSong();
+        break;
+      case RIGHT_ARROW_KEY:
+        playNextSong();
+        break;
+      case UP_ARROW_KEY:
+        increaseVolume();
+        break;
+      case DOWN_ARROW_KEY:
+        decreaseVolume();
+        break;
+      case L_KEY:
+        toggleLoop();
+        break;
+      default:
+        break;
+    }
   });
-
-  function increaseVolume() {
-    // Increase volume by a small increment
-    lofiAudio.volume = Math.min(1, lofiAudio.volume + 0.1);
-    // Update volume slider position
-    volumeSlider.value = lofiAudio.volume;
-  }
-
-  function decreaseVolume() {
-    // Decrease volume by a small increment
-    lofiAudio.volume = Math.max(0, lofiAudio.volume - 0.1);
-    // Update volume slider position
-    volumeSlider.value = lofiAudio.volume;
-  }
 
   function togglePlayPause() {
     if (isPlaying) {
@@ -174,10 +190,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updatePlayPauseButton() {
     if (isPlaying) {
-      playPauseBtn.classList.add("playing");
+      playPauseBtn.innerHTML = "<img width='80' height='80' src='https://img.icons8.com/sf-black-filled/100/FA5252/pause.png' alt='pause' />";
     } else {
-      playPauseBtn.classList.remove("playing");
+      playPauseBtn.innerHTML = "<img width='80' height='80' src='https://img.icons8.com/sf-black-filled/100/FA5252/play.png' alt='play' />";
     }
+  }
+
+  playPauseBtn.addEventListener("click", togglePlayPause);
+
+  lofiAudio.addEventListener("timeupdate", function () {
+    const currentTime = lofiAudio.currentTime;
+    const duration = lofiAudio.duration;
+    currentTimeDisplay.textContent = formatTime(currentTime);
+    totalDurationDisplay.textContent = formatTime(duration);
+    const progressPercent = (currentTime / duration) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+  });
+
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${minutes}:${formattedSeconds}`;
+  }
+
+  function playPrevSong() {
+    currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+    playSong(currentSongIndex);
   }
 
   function playNextSong() {
@@ -185,86 +224,36 @@ document.addEventListener("DOMContentLoaded", function () {
     playSong(currentSongIndex);
   }
 
-  function playPrevSong() {
-    currentSongIndex =
-      (currentSongIndex - 1 + playlist.length) % playlist.length;
-    playSong(currentSongIndex);
-  }
-
-  function formatTime(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  }
-
-  function updateTrackDurationDisplay() {
-    currentTimeDisplay.textContent = formatTime(lofiAudio.currentTime);
-    totalDurationDisplay.textContent = formatTime(lofiAudio.duration);
-  }
-
-  lofiAudio.addEventListener("loadedmetadata", updateTrackDurationDisplay);
-  lofiAudio.addEventListener("timeupdate", function () {
-    updateTrackDurationDisplay();
-    updateProgressBar();
-  });
-
-  function rewindSong() {
-    lofiAudio.currentTime -= 10; // Rewind 10 seconds
-  }
-
-  playSong(currentSongIndex);
-
-  playPauseBtn.addEventListener("click", togglePlayPause);
-  nextBtn.addEventListener("click", playNextSong);
   prevBtn.addEventListener("click", playPrevSong);
-  rewindBtn.addEventListener("click", rewindSong);
+  nextBtn.addEventListener("click", playNextSong);
+
+  function increaseVolume() {
+    if (lofiAudio.volume < 1) {
+      lofiAudio.volume += 0.1;
+    }
+    volumeSlider.value = lofiAudio.volume;
+  }
+
+  function decreaseVolume() {
+    if (lofiAudio.volume > 0) {
+      lofiAudio.volume -= 0.1;
+    }
+    volumeSlider.value = lofiAudio.volume;
+  }
 
   volumeSlider.addEventListener("input", function () {
-    lofiAudio.volume = volumeSlider.value;
+    lofiAudio.volume = parseFloat(this.value);
   });
 
-  progressBar.addEventListener("click", function (e) {
-    const rect = progressBar.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const width = rect.width;
-    const percentage = offsetX / width;
-    const seekTime = percentage * lofiAudio.duration;
-    lofiAudio.currentTime = seekTime;
-    updateProgressBar();
+  rewindBtn.addEventListener("click", function () {
+    lofiAudio.currentTime = 0;
   });
 
-  let isDragging = false;
-  progressBar.addEventListener("mousedown", function (e) {
-    isDragging = true;
-    updateProgress(e);
-  });
-
-  document.addEventListener("mousemove", function (e) {
-    if (isDragging) {
-      updateProgress(e);
+  lofiAudio.addEventListener("ended", function () {
+    if (!isLooping) {
+      playNextSong();
     }
   });
 
-  document.addEventListener("mouseup", function () {
-    isDragging = false;
-  });
-
-  function updateProgress(e) {
-    const rect = progressBar.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const width = rect.width;
-    const percentage = Math.min(1, Math.max(0, offsetX / width));
-    const seekTime = percentage * lofiAudio.duration;
-    lofiAudio.currentTime = seekTime;
-    updateProgressBar();
-  }
-
-  function updateProgressBar() {
-    const progress = (lofiAudio.currentTime / lofiAudio.duration) * 100;
-    progressBar.style.width = `${progress}%`;
-  }
-
-  lofiAudio.addEventListener("ended", function () {
-    playNextSong();
-  });
+  playSong(currentSongIndex);
 });
