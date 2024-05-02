@@ -78,34 +78,48 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add more custom titles here
   ];
 
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  let audioContext;
 
-  const source = audioContext.createMediaElementSource(lofiAudio);
-  const equalizer = audioContext.createBiquadFilter();
-  equalizer.type = "peaking";
-  equalizer.frequency.value = 1000;
-  equalizer.gain.value = 0;
-  equalizer.Q.value = 1;
+  function initializeAudioContext() {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioContext.createMediaElementSource(lofiAudio);
+    const equalizer = audioContext.createBiquadFilter();
+    equalizer.type = "peaking";
+    equalizer.frequency.value = 1000;
+    equalizer.gain.value = 0;
+    equalizer.Q.value = 1;
 
-  source.connect(equalizer);
-  equalizer.connect(audioContext.destination);
+    source.connect(equalizer);
+    equalizer.connect(audioContext.destination);
 
-  function adjustEqualizer(bandIndex, gainValue) {
-    const minGain = -40;
-    const maxGain = 40;
-    const frequencyRange = [30, 18000];
-    const frequency = Math.pow(2, bandIndex) * frequencyRange[0];
-    gainValue = Math.max(minGain, Math.min(maxGain, gainValue));
-    equalizer.gain.setValueAtTime(gainValue, audioContext.currentTime);
-    console.log(`Adjusted gain for band ${bandIndex}: ${gainValue} dB`);
+    function adjustEqualizer(bandIndex, gainValue) {
+      const minGain = -40;
+      const maxGain = 40;
+      const frequencyRange = [30, 18000];
+      const frequency = Math.pow(2, bandIndex) * frequencyRange[0];
+      gainValue = Math.max(minGain, Math.min(maxGain, gainValue));
+      equalizer.gain.setValueAtTime(gainValue, audioContext.currentTime);
+      console.log(`Adjusted gain for band ${bandIndex}: ${gainValue} dB`);
+    }
+
+    band1Slider.addEventListener("input", function () {
+      adjustEqualizer(0, parseFloat(this.value));
+    });
+
+    band2Slider.addEventListener("input", function () {
+      adjustEqualizer(1, parseFloat(this.value));
+    });
+
+    // Add event listeners and other functionality here...
   }
 
-  band1Slider.addEventListener("input", function () {
-    adjustEqualizer(0, parseFloat(this.value));
-  });
-
-  band2Slider.addEventListener("input", function () {
-    adjustEqualizer(1, parseFloat(this.value));
+  // Initialize AudioContext when the user clicks the play button
+  playPauseBtn.addEventListener("click", function() {
+    if (!audioContext) {
+      initializeAudioContext();
+    }
+    console.log("Play/Pause button clicked");
+    togglePlayPause();
   });
 
   function toggleLoop() {
@@ -179,9 +193,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function togglePlayPause() {
+    console.log("Toggling play/pause");
     if (isPlaying) {
+      console.log("Pausing audio");
       lofiAudio.pause();
     } else {
+      console.log("Playing audio");
       lofiAudio.play();
     }
     isPlaying = !isPlaying;
@@ -195,8 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
       playPauseBtn.innerHTML = "<img width='80' height='80' src='https://img.icons8.com/sf-black-filled/100/FA5252/play.png' alt='play' />";
     }
   }
-
-  playPauseBtn.addEventListener("click", togglePlayPause);
 
   lofiAudio.addEventListener("timeupdate", function () {
     const currentTime = lofiAudio.currentTime;
