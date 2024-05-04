@@ -1,81 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   const lofiAudio = document.getElementById("lofiAudio");
-  const visualizerCanvas = document.getElementById("visualizer");
-  const visualizerCtx = visualizerCanvas.getContext("2d");
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const audioSrc = audioCtx.createMediaElementSource(lofiAudio);
-  const analyser = audioCtx.createAnalyser();
-
-  // Connect the audio source to the analyser node
-  audioSrc.connect(analyser);
-  audioSrc.connect(audioCtx.destination);
-
-  // Set up visualizer
-  const bufferLength = analyser.frequencyBinCount;
-  const dataArray = new Uint8Array(bufferLength);
-
-  // Draw visualizer
-  function draw() {
-    requestAnimationFrame(draw);
-
-    analyser.getByteFrequencyData(dataArray);
-
-    const totalHeight = dataArray.reduce((acc, val) => acc + val, 0); // Sum of all bar heights
-    const averageHeight = totalHeight / dataArray.length; // Average bar height
-
-    // Calculate box shadow properties based on average bar height
-    const shadowOffsetY = (averageHeight / 255) * 40; // Adjust the factor to amplify shadow movement
-    const boxShadow = `0px ${shadowOffsetY}px 40px rgba(250, 82, 82, 0.8)`; // Adjust the shadow color, blur, and spread radius as needed
-
-    // Apply box shadow to the player element
-    const player = document.querySelector(".lofi-player");
-    player.style.transition = "box-shadow 0.1s ease-in-out"; // Adjust transition timing if needed
-    player.style.boxShadow = boxShadow;
-
-    // Clear canvas
-    visualizerCtx.clearRect(
-      0,
-      0,
-      visualizerCanvas.width,
-      visualizerCanvas.height
-    );
-
-    // Draw visualizer bars with animations
-    const barWidth = visualizerCanvas.width / bufferLength;
-    let x = 0;
-    for (let i = 0; i < bufferLength; i++) {
-      const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
-      const percent = barHeight / visualizerCanvas.height;
-      const waveHeight =
-        visualizerCanvas.height * 0.5 * Math.sin(Date.now() * 0.005 + i * 0.1);
-      const barY = visualizerCanvas.height - barHeight + waveHeight;
-
-      // Add gradient to the bars for more visibility
-      const gradient = visualizerCtx.createLinearGradient(
-        0,
-        0,
-        0,
-        visualizerCanvas.height
-      );
-      gradient.addColorStop(0, "#FF5151");
-      gradient.addColorStop(1, "#FF0000");
-      visualizerCtx.fillStyle = gradient;
-
-      // Add a glow effect to the bars
-      visualizerCtx.shadowColor = "#FF5151";
-      visualizerCtx.shadowBlur = 20;
-
-      // Draw the bar
-      visualizerCtx.fillRect(x, barY, barWidth, barHeight * 1.5);
-
-      // Update x position for the next bar
-      x += barWidth + 1; // Add some spacing between bars
-    }
-  }
-
-  // Start drawing the visualizer
-  draw();
-
   const playPauseBtn = document.getElementById("playPauseBtn");
   const volumeSlider = document.getElementById("volumeSlider");
   const progressBar = document.getElementById("progress");
@@ -197,10 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
     togglePlayPause();
   });
 
-  if (!audioSrc) {
-    audioSrc = audioCtx.createMediaElementSource(lofiAudio);
-  }
-
   function toggleLoop() {
     isLooping = !isLooping;
     updateLoopButton();
@@ -228,10 +148,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function playSong(songIndex) {
     lofiAudio.src = playlist[songIndex];
-    lofiAudio.play();
-    isPlaying = true;
-    updatePlayPauseButton();
-    updateTrackTitle(songIndex);
+    lofiAudio.play()
+      .then(() => {
+        // Audio playback started successfully
+        isPlaying = true;
+        updatePlayPauseButton();
+        updateTrackTitle(songIndex);
+      })
+      .catch(error => {
+        // Error occurred while loading or playing the audio
+        console.error('Error playing audio:', error);
+      });
   }
 
   function updateTrackTitle(songIndex) {
