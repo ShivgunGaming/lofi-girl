@@ -180,3 +180,63 @@ html {
   border-radius: 10px; /* Added border radius for a softer look */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
 }
+
+.social-sharing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.share-button {
+  background-color: #1a1a1a;
+  border: none;
+  border-radius: 50%;
+  padding: 15px; /* Increase padding for bigger buttons */
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.share-button:hover {
+  background-color: #333;
+}
+
+.share-button i.fa-twitter {
+  color: #fff;
+  width: 75px; /* Increase width of the Twitter icon */
+  height: 75px; /* Increase height of the Twitter icon */
+}
+
+
+/* Tooltip */
+.share-button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 130%; /* Adjust tooltip position */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
