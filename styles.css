@@ -189,37 +189,30 @@ html {
 }
 
 .share-button {
-  background-color: #1a1a1a;
+  background-color: #FA5252;
   border: none;
   border-radius: 50%;
-  padding: 15px; /* Increase padding for bigger buttons */
+  padding: 15px;
   margin: 0 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .share-button:hover {
-  background-color: #333;
+  background-color: #FF6B6B;
 }
 
 .share-button i.fa-twitter {
   color: #fff;
-  width: 75px; /* Increase width of the Twitter icon */
-  height: 75px; /* Increase height of the Twitter icon */
+  font-size: 24px; /* Adjust icon size */
 }
-
 
 /* Tooltip */
-.share-button:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
 .tooltip {
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  top: 130%; /* Adjust tooltip position */
+  bottom: 120%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #333;
@@ -233,10 +226,16 @@ html {
 .tooltip::after {
   content: '';
   position: absolute;
-  top: -5px;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #333 transparent;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+.share-button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
