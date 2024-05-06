@@ -80,6 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let audioContext;
 
+  document.querySelector('.share-twitter').addEventListener('click', function(event) {
+    event.preventDefault();
+    var trackTitle = document.getElementById('trackTitle').textContent;
+    var trackUrl = window.location.href;
+    var message = "Check out this awesome lofi track: " + trackTitle;
+    var shareUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(message) + '&url=' + encodeURIComponent(trackUrl);
+    window.open(shareUrl, '_blank');
+  });
+
   function initializeAudioContext() {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioContext.createMediaElementSource(lofiAudio);
