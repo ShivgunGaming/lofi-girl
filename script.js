@@ -80,13 +80,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let audioContext;
 
-  document.querySelector('.share-twitter').addEventListener('click', function(event) {
-    event.preventDefault();
-    var trackTitle = document.getElementById('trackTitle').textContent;
-    var trackUrl = window.location.href;
-    var message = "Check out this awesome lofi track: " + trackTitle;
-    var shareUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(message) + '&url=' + encodeURIComponent(trackUrl);
-    window.open(shareUrl, '_blank');
+  document
+    .querySelector(".share-twitter")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      var trackTitle = document.getElementById("trackTitle").textContent;
+      var trackUrl = window.location.href;
+      var message = "Check out this awesome lofi track: " + trackTitle;
+      var shareUrl =
+        "https://twitter.com/intent/tweet?text=" +
+        encodeURIComponent(message) +
+        "&url=" +
+        encodeURIComponent(trackUrl);
+      window.open(shareUrl, "_blank");
+    });
+
+  // JavaScript code for hover effect
+  const shareButton = document.querySelector(".share-twitter");
+  shareButton.addEventListener("mouseover", function () {
+    this.style.backgroundColor = "#FF6B6B"; // Change background color on hover
+  });
+  shareButton.addEventListener("mouseout", function () {
+    this.style.backgroundColor = "#FA5252"; // Restore original background color when not hovering
+  });
+
+  // JavaScript code for custom icon animation
+  const twitterIcon = document.querySelector('.share-twitter i');
+  twitterIcon.addEventListener('mouseenter', function() {
+    this.style.transform = 'scale(1.1)'; // Scale up the icon on hover
+  });
+  twitterIcon.addEventListener('mouseleave', function() {
+    this.style.transform = 'scale(1)'; // Restore original size when not hovered
   });
 
   function initializeAudioContext() {
@@ -157,16 +181,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function playSong(songIndex) {
     lofiAudio.src = playlist[songIndex];
-    lofiAudio.play()
+    lofiAudio
+      .play()
       .then(() => {
         // Audio playback started successfully
         isPlaying = true;
         updatePlayPauseButton();
         updateTrackTitle(songIndex);
       })
-      .catch(error => {
+      .catch((error) => {
         // Error occurred while loading or playing the audio
-        console.error('Error playing audio:', error);
+        console.error("Error playing audio:", error);
       });
   }
 
